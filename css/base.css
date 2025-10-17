@@ -1,0 +1,69 @@
+/* ÜHINE STIILIDE ALUS */
+
+:root{
+  --bg:#0b0f1a; --fg:#e2e8f0; --muted:#94a3b8; --muted2:#cbd5e1;
+  --brand1:#22d3ee; --brand2:#a78bfa; --brandGlow:rgba(34,211,238,.25);
+  --chip:#1f2937; --chipActive:#6475ff;
+  --glass:rgba(4,7,16,.6); --border:rgba(148,163,184,.18);
+  --cardBg:rgba(255,255,255,.06); --cardBorder:rgba(255,255,255,.16); --cardShadow:rgba(2,6,23,.35); --cardFg:#e5e7eb;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+.site-header{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--glass);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.brand{font-weight:800;letter-spacing:.06em;background:linear-gradient(90deg,var(--brand1),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent;font-size:20px}
+.site-nav{display:flex;gap:12px}
+.site-nav a{padding:10px 14px;border-radius:12px;border:1px solid var(--chip);color:var(--fg);transition:.35s}
+.site-nav a:hover,.site-nav a.active{border-color:var(--chipActive);box-shadow:0 0 8px rgba(34,211,238,.5),0 0 16px rgba(99,102,241,.4),inset 0 0 12px rgba(34,211,238,.2)}
+.burger{display:none;flex-direction:column;gap:4px;background:transparent;border:0}
+.burger span{width:24px;height:2px;background:var(--fg)}
+@media (max-width:860px){
+  .burger{display:flex}
+  .site-nav{position:fixed;inset:64px 16px auto 16px;background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:12px;display:none;flex-direction:column}
+  .site-nav.open{display:flex}
+}
+.hero,.scene{position:relative;min-height:70vh;display:grid;place-items:center;overflow:hidden}
+.layer{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat;will-change:transform}
+.fx{position:absolute;inset:0;pointer-events:none}
+.overlay{position:absolute;inset:0;mix-blend-mode:soft-light;opacity:.8}
+.copy,.hero-text{position:relative;z-index:2;max-width:960px;padding:24px;text-align:center}
+
+/* Pealkirjad – solid ink + overlay shine (::after) */
+h1,h2,.script{
+  font-family:"Dancing Script", cursive;
+  font-weight:700;
+  line-height:1.05;
+  font-size:clamp(28px,6vw,60px);
+  color:#f8fafc;
+  text-shadow:0 2px 18px rgba(255,255,255,.08), 0 0 12px var(--brandGlow);
+  position:relative;
+  filter:blur(0px); opacity:1;
+}
+[data-reveal]{opacity:0}
+[data-reveal].reveal{opacity:1}
+/* the sweeping light */
+h1::after, h2::after, .script::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,.75) 50%, transparent 100%);
+  background-size:200% 100%;
+  mix-blend-mode:screen;
+  opacity:0; pointer-events:none;
+  transform:skewX(-8deg);
+}
+[data-reveal].reveal::after{
+  opacity:1;
+  animation:shineSweep .9s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes shineSweep{
+  0%{ background-position:-200% 0; opacity:0 }
+  20%{ opacity:1 }
+  100%{ background-position:200% 0; opacity:0 }
+}
+
+p{color:var(--muted2)}
+.cards{max-width:1100px;margin:24px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 20px}
+@media (max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.cards{grid-template-columns:1fr}}
+.card{background:var(--cardBg);border:1px solid var(--cardBorder);border-radius:16px;padding:14px;box-shadow:0 8px 24px var(--cardShadow);color:var(--cardFg)}
+footer.site-footer{border-top:1px solid var(--border);padding:18px;text-align:center;color:var(--muted)}
