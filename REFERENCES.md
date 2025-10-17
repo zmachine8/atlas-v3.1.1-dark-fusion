@@ -1,9 +1,9 @@
-# REFERENCES (ATLAS v3.1.1 — Dark Hybrid Fusion bugfix)
+# VIITED (ATLAS v3.1.1 — Dark Hybrid Fusioni veaparandus)
 
-All JavaScript in `js/app.js` is custom-built; no external JS used.
-Change: Shine effect moved to CSS `::after` overlay to prevent text transparency.
+Kogu JavaScript failis `js/app.js` on kohandatud; välist JS-i ei kasutata.
+Muudatus: Läikiv efekt teisaldati CSS-i `::after` peale, et vältida teksti läbipaistvust.
 
-## Stock photos (Unsplash)
+## Stock-fotod (Unsplash)
 - Road (dark): Luca Bravo — Night road (photo id 1500530855697-b586d89ba3ee)
 - Forest (day back/mid): Tim Bogdanov — Forest light (photo id 1500534314209-a25ddb2bd429)
 - Mountains/foreground: Benjamin Voros — Misty mountains (photo id 1501785888041-af3ef285b470)
