@@ -3,6 +3,7 @@
 <head>
   <title>ATLAS v3.1.1 — Maantee (Dark Fusion)</title>
   <link rel="stylesheet" href="css/highway.css" />
+  <link rel="stylesheet" href="css/form.css" />
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,32 +12,48 @@
 
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="index.html">ATLAS</a>
-    <button class="burger" data-burger aria-label="Ava menüü" aria-expanded="false"><span></span><span></span><span></span></button>
-    <nav class="site-nav" data-nav>
-      <a class="active" href="index.html">Maantee</a>
-      <a href="nature.html">Loodus</a>
-      <a href="beach.html">Rand</a>
-    </nav>
-  </header>
-  <main>
-    <section class="hero">
-      <div class="layer road" data-parallax="0.08"></div>
-      <div class="layer fog" data-parallax="0.12"></div>
-      <div class="layer light" data-parallax="0.02"></div>
-      <div class="overlay"></div>
-      <div class="hero-text">
-        <h1 data-reveal>Öine tee — filmiplakatlik</h1>
-        <p data-reveal>Tekst on alati loetav; shine jookseb üle pealkirja eraldi kihina.</p>
-      </div>
-    </section>
-    <section class="cards">
-      <article class="card" data-reveal><h3 class="script">Parallax</h3><p>Cinematic depth system. Liikumine kihistab sügavust ja muudab valguse suunda.</p></article>
-      <article class="card" data-reveal><h3 class="script">Soft-light</h3><p>Ühtlustab pildi ja tooni.</p></article>
-      <article class="card" data-reveal><h3 class="script">Pehme tekst</h3><p>Blur-in + shine overlay — servad on õrnad.</p></article>
-    </section>
-  </main>
-  <footer class="site-footer"><p>© ATLAS v3.1.1 • Maantee • Loodus • Rand</p></footer>
+<header class="site-header">
+  <a class="brand" href="index.html">ATLAS</a>
+  <button class="burger" data-burger aria-label="Ava menüü" aria-expanded="false"><span></span><span></span><span></span></button>
+  <nav class="site-nav" data-nav>
+    <a class="active" href="index.html">Maantee</a>
+    <a href="nature.html">Loodus</a>
+    <a href="beach.html">Rand</a>
+  </nav>
+</header>
+<main>
+  <section class="hero">
+    <div class="layer road" data-parallax="0.08"></div>
+    <div class="layer fog" data-parallax="0.12"></div>
+    <div class="layer light" data-parallax="0.02"></div>
+    <div class="overlay"></div>
+    <div class="hero-text">
+      <h1 data-reveal>Öine tee — filmiplakatlik</h1>
+      <p data-reveal>Tekst on alati loetav; shine jookseb üle pealkirja eraldi kihina.</p>
+    </div>
+  </section>
+  <section class="cards">
+    <article class="card" data-reveal><h3 class="script">Parallax</h3><p>Cinematic depth system. Liikumine kihistab sügavust ja muudab valguse suunda.</p></article>
+    <article class="card" data-reveal><h3 class="script">Soft-light</h3><p>Ühtlustab pildi ja tooni.</p></article>
+    <article class="card" data-reveal><h3 class="script">Pehme tekst</h3><p>Blur-in + shine overlay — servad on õrnad.</p></article>
+  </section>
+</main>
+<footer class="site-footer">
+  <p>© ATLAS v3.1.1 • Maantee • Loodus • Rand</p>
+  <div class="comment-section">
+    <h2>Jäta kommentaar</h2>
+    <form class="comment-form" id="commentForm">
+      <label for="name">Teie nimi:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="comment">Kommentaar:</label>
+      <textarea id="comment" name="comment" rows="4" required></textarea>
+
+      <button type="submit">Saada</button>
+    </form>
+
+    <div class="comment-list" id="commentList"></div>
+  </div>
+</footer>
 </body>
 </html>

@@ -15,12 +15,12 @@
     });
   }
 
-/* ==========================================================
-   SCROLL PARALLAX — lisab sügavust vastavalt scrollimisele
-   ----------------------------------------------------------
-   - mõjutab kõiki elemente, millel on [data-parallax]
-   - liikumine on väga pehme (muudetav intensity väärtus)
-   ========================================================== */
+  /* ==========================================================
+     SCROLL PARALLAX — lisab sügavust vastavalt scrollimisele
+     ----------------------------------------------------------
+     - mõjutab kõiki elemente, millel on [data-parallax]
+     - liikumine on väga pehme (muudetav intensity väärtus)
+     ========================================================== */
   const parallaxEls = Array.from(document.querySelectorAll('[data-parallax]'));
   const onScroll = ()=>{
     if (prefersReduced) return;
@@ -40,8 +40,8 @@
         const el = e.target;
         if (!prefersReduced){
           el.animate(
-            [{ filter:'blur(8px)', opacity:0 }, { filter:'blur(0px)', opacity:1 }],
-            { duration: 700, easing:'cubic-bezier(.2,.8,.2,1)', fill:'forwards' }
+              [{ filter:'blur(8px)', opacity:0 }, { filter:'blur(0px)', opacity:1 }],
+              { duration: 700, easing:'cubic-bezier(.2,.8,.2,1)', fill:'forwards' }
           );
         } else {
           el.style.opacity = 1;
@@ -95,7 +95,7 @@
    VALGUSLOOGIKA - VALGUSE INTENSIIVSUS HIIRE SUUNA JÄRGI
    ========================================================== */
     if (light) {
-    // arvuta uus läbipaistmatus (väärtus 0.2–0.9)
+      // arvuta uus läbipaistmatus (väärtus 0.2–0.9)
       const opacity = 0.5 + mouseX * 0.4;
       light.style.opacity = Math.max(0.2, Math.min(0.9, opacity));
     }
@@ -104,3 +104,30 @@
   };
   update();
 })();
+
+
+/* ==========================================================
+   KOMMENTAARI VORMI LOOGIKA — kuvab kommentaarid otse lehel
+   ========================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('commentForm');
+  const list = document.getElementById('commentList');
+
+  if (!form) return;
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const comment = document.getElementById('comment').value.trim();
+
+    if (name && comment) {
+      const div = document.createElement('div');
+      div.classList.add('comment');
+      div.innerHTML = `<strong>${name}</strong><p>${comment}</p>`;
+      list.prepend(div);
+
+      form.reset();
+    }
+  });
+});
