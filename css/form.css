@@ -1,0 +1,57 @@
+form.comment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.2rem 1.5rem;
+    border-radius: 1rem;
+    max-width: 420px;
+    margin: 2rem auto;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+form.comment-form label {
+    color: #ccc;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+}
+
+form.comment-form input,
+form.comment-form textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.8rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+form.comment-form input:focus,
+form.comment-form textarea:focus {
+    outline: none;
+    border-color: #66ccff;
+    box-shadow: 0 0 6px #66ccff33;
+}
+
+form.comment-form button {
+    background: linear-gradient(135deg, #0078ff, #00c6ff);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+form.comment-form button:hover {
+    background: linear-gradient(135deg, #00aaff, #33ddff);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 200, 255, 0.4);
+}

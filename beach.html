@@ -3,6 +3,7 @@
 <head>
   <title>ATLAS v3.1.1 — Rand (Dark Fusion)</title>
   <link rel="stylesheet" href="css/beach.css" />
+  <link rel="stylesheet" href="css/form.css" />
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,32 +12,48 @@
 
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="index.html">ATLAS</a>
-    <button class="burger" data-burger aria-label="Ava menüü" aria-expanded="false"><span></span><span></span><span></span></button>
-    <nav class="site-nav" data-nav>
-      <a href="index.html">Maantee</a>
-      <a href="nature.html">Loodus</a>
-      <a class="active" href="beach.html">Rand</a>
-    </nav>
-  </header>
-  <main>
-    <section class="hero">
-      <div class="layer sky" data-parallax="0.00"></div>
-      <div class="layer sea" data-parallax="0.06"></div>
-      <div class="layer sand" data-parallax="0.12"></div>
-      <div class="overlay"></div>
-      <div class="hero-text">
-        <h1 data-reveal>Rand — kuldne hommik, tume raam</h1>
-        <p data-reveal>Tekst jääb alati nähtavaks; shine libiseb eraldi kihina üle pealkirja.</p>
-      </div>
-    </section>
-    <section class="cards">
-      <article class="card" data-reveal><h3 class="script">Golden feel</h3><p>Soe, mitte ülepingutatud.</p></article>
-      <article class="card" data-reveal><h3 class="script">Parallax</h3><p>Ruumi tekitav kerge liikumine.</p></article>
-      <article class="card" data-reveal><h3 class="script">Pehmus</h3><p>Blur-in + glow – kinoekraanilik.</p></article>
-    </section>
-  </main>
-  <footer class="site-footer"><p>© ATLAS v3.1.1 • Rand</p></footer>
+<header class="site-header">
+  <a class="brand" href="index.html">ATLAS</a>
+  <button class="burger" data-burger aria-label="Ava menüü" aria-expanded="false"><span></span><span></span><span></span></button>
+  <nav class="site-nav" data-nav>
+    <a href="index.html">Maantee</a>
+    <a href="nature.html">Loodus</a>
+    <a class="active" href="beach.html">Rand</a>
+  </nav>
+</header>
+<main>
+  <section class="hero">
+    <div class="layer sky" data-parallax="0.00"></div>
+    <div class="layer sea" data-parallax="0.06"></div>
+    <div class="layer sand" data-parallax="0.12"></div>
+    <div class="overlay"></div>
+    <div class="hero-text">
+      <h1 data-reveal>Rand — kuldne hommik, tume raam</h1>
+      <p data-reveal>Tekst jääb alati nähtavaks; shine libiseb eraldi kihina üle pealkirja.</p>
+    </div>
+  </section>
+  <section class="cards">
+    <article class="card" data-reveal><h3 class="script">Golden feel</h3><p>Soe, mitte ülepingutatud.</p></article>
+    <article class="card" data-reveal><h3 class="script">Parallax</h3><p>Ruumi tekitav kerge liikumine.</p></article>
+    <article class="card" data-reveal><h3 class="script">Pehmus</h3><p>Blur-in + glow – kinoekraanilik.</p></article>
+  </section>
+</main>
+<footer class="site-footer">
+  <p>© ATLAS v3.1.1 • Rand</p>
+  <div class="comment-section">
+    <h2>Jäta kommentaar</h2>
+    <form class="comment-form" id="commentForm">
+      <label for="name">Teie nimi:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="comment">Kommentaar:</label>
+      <textarea id="comment" name="comment" rows="4" required></textarea>
+
+      <button type="submit">Saada</button>
+    </form>
+
+    <div class="comment-list" id="commentList"></div>
+  </div>
+</footer>
 </body>
 </html>
