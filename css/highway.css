@@ -12,12 +12,12 @@
 }
 
 .hero .fog {
-    background: radial-gradient(ellipse at 50% 60%, rgba(160, 190, 255, .25) 0%, transparent 60%);
-    opacity: .08
+    background: radial-gradient(ellipse at 50% 60%, rgb(160 190 255 / 25%) 0%, transparent 60%);
+    opacity: .08;
 }
 
 .hero .light {
-    background: linear-gradient(18deg, rgba(90, 140, 255, .22) 0%, transparent 60%);
+    background: linear-gradient(18deg, rgb(90 140 255 / 22%) 0%, transparent 60%);
     mix-blend-mode: screen;
-    opacity: .65
+    opacity: .65;
 }
