@@ -112,7 +112,7 @@ a {
     min-height: 70vh;
     display: grid;
     place-items: center;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .layer {
