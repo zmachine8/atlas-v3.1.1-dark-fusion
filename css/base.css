@@ -121,7 +121,10 @@ a {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    scale: 1.05;              /* ~5% suurem – vajadusel 1.10–1.12 */
+    transform-origin: center; /* et skaleerimine toimuks keskelt */
     will-change: transform;
+    z-index: 1;               /* pildikihid allpool */
 }
 
 .fx {
