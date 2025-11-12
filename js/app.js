@@ -27,7 +27,13 @@
     const y = window.scrollY;
     for (const el of parallaxEls){
       const r = parseFloat(el.dataset.parallax || '0.08');
-      el.style.transform = `translateY(${-(y*r)}px)`;
+      const ty = -(y * r);
+
+      // Salvestame scrolli Y-nihke dataset’i, et hiireparallax saaks sellega liita
+      el.dataset.scrollY = String(ty);                           // CHANGED
+
+      // Kasutame eraldi 'translate' omadust, et mitte üle kirjutada CSS 'transform' skaalat jne
+      el.style.translate = `0px ${ty}px`;                        // CHANGED
     }
   };
   document.addEventListener('scroll', onScroll, {passive:true});
@@ -82,18 +88,21 @@
   const update = () => {
     layers.forEach(el => {
       const r = parseFloat(el.dataset.parallax || '0.05');
-      // lisame hiireefekti — väiksem mõju kaugematel kihtidel
+
+      // hiireefekt — väiksem mõju kaugematel kihtidel
       const moveX = -mouseX * intensity * r;
       const moveY = -mouseY * intensity * r;
-      // ühendame olemasoleva scroll-parallax transformi
-      const currentY = el.style.transform.match(/translateY\(([-0-9.]+)px\)/);
-      const scrollY = currentY ? parseFloat(currentY[1]) : 0;
-      el.style.transform = `translate(${moveX}px, ${scrollY + moveY}px)`;
+
+      // Loeme scrolli Y-nihke, mille salvestas scroll-parallax
+      const scrollY = parseFloat(el.dataset.scrollY || '0');     // CHANGED
+
+      // Seame ainult translate’i; 'transform' (nt scale) jääb CSS-ist alles
+      el.style.translate = `${moveX}px ${scrollY + moveY}px`;    // CHANGED
     });
 
     /* ==========================================================
-   VALGUSLOOGIKA - VALGUSE INTENSIIVSUS HIIRE SUUNA JÄRGI
-   ========================================================== */
+       VALGUSLOOGIKA - VALGUSE INTENSIIVSUS HIIRE SUUNA JÄRGI
+       ========================================================== */
     if (light) {
       // arvuta uus läbipaistmatus (väärtus 0.2–0.9)
       const opacity = 0.5 + mouseX * 0.4;
