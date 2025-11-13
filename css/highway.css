@@ -6,18 +6,48 @@
    - light  = valguse kiired linear gradient
    ========================================================== */
 
+/* PÕHIKIHT – maantee taust (peamine pilt kangelassektsioonis) */
 .hero .road {
+    /* Taustapilt – maantee, mis jookseb läbi mägede või looduse */
     background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80');
+
+    /* Väike kontrasti, värviküllastuse ja heleduse korrigeerimine:
+       - contrast(1.05): teeb toonid veidi tugevamaks
+       - saturate(1.02): lisab õrnalt värvi
+       - brightness(.9): teeb üldilme pisut tumedamaks */
     filter: contrast(1.05) saturate(1.02) brightness(.9);
 }
 
+/* UDUKIHT – pehme helesinine vinjett, mis loob kauguse ja atmosfääri */
 .hero .fog {
-    background: radial-gradient(ellipse at 50% 60%, rgb(160 190 255 / 25%) 0%, transparent 60%);
+    /* Radiaalne gradient (ovaalne udu), keskpunkt umbes 60% kõrgusel:
+       - algab poolläbipaistvast sinakast toonist (rgb(160 190 255 / 25%))
+       - hajub läbipaistvaks umbes 60% raadiuses */
+    background: radial-gradient(
+        ellipse at 50% 60%,
+        rgb(160 190 255 / 25%) 0%,
+        transparent 60%
+    );
+
+    /* Madal läbipaistvus, et efekt jääks väga õrn */
     opacity: .08;
 }
 
+/* VALGUSKIHT – sinakas valgusgradient üle pildi (valgusvihk taevas) */
 .hero .light {
-    background: linear-gradient(18deg, rgb(90 140 255 / 22%) 0%, transparent 60%);
+    /* Lineaarne gradient 18° nurga all:
+       - ülemises osas õrn sinakas toon (rgb(90 140 255 / 22%))
+       - sulandub allpool täielikult läbipaistvaks */
+    background: linear-gradient(
+        18deg,
+        rgb(90 140 255 / 22%) 0%,
+        transparent 60%
+    );
+
+    /* "screen" segamisrežiim – helendab allolevat pilti,
+       justkui valguskiir või päikesesära */
     mix-blend-mode: screen;
+
+    /* Läbipaistvus, et valgus jääks pehme ja mitte liiga ere */
     opacity: .65;
 }
