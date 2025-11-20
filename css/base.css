@@ -120,6 +120,8 @@ a {
     inset: 0;
     background-position: center;
     background-size: 120%;
+    transform-origin: center;
+    transform: scale(1.15); /* või 1.2 */
     background-repeat: no-repeat;
     will-change: transform;
     transform: translateZ(0);
