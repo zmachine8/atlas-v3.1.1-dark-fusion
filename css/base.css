@@ -336,5 +336,17 @@ footer.site-footer {
 
 .hero, .scene {
     position: relative !important;
+    min-height: 100vh !important;
     overflow: hidden !important;
+}
+
+.layer {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-size: 130% !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    pointer-events: none;
 }
