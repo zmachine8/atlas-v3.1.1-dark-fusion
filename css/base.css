@@ -378,6 +378,6 @@ h3 {
     flex-direction: column;
     }
     .cards {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: repeat(3, 1fr);
     }
 }
