@@ -346,3 +346,31 @@ h3 {
         text-align: left !important;
     }
 }
+
+/* UNIVERSAALNE TABLET PORTRAIT LAYOUT (kuni ~1400px) */
+@media (max-width: 1400px) and (min-width: 769px) {
+    .media-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .media-text {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .media-text h2,
+    .media-text h3 {
+        text-align: left;
+    }
+
+    .media-text p {
+        text-align: center;
+    }
+
+    .media-image img,
+    .media-video video {
+        height: 280px;
+    }
+}
