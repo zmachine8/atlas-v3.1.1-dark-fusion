@@ -273,7 +273,7 @@ footer.site-footer {
 }
 
 /* Juhib media-teksti paigutust */
-.media-text h3 {
+.media-text h2 {
     margin-bottom: 1rem;
     text-align: left;
 }
@@ -330,7 +330,7 @@ h2 {
 
 /* H3 – alampealkiri */
 h3 {
-    font-size: clamp(34px, 4vw, 55px);
+    font-size: clamp(30px, 4vw, 55px);
     opacity: 0.95;
 }
 
