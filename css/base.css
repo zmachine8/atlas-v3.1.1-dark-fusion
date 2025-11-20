@@ -109,8 +109,8 @@ a {
 
 .hero, .scene {
     position: relative;
-    min-height: 100vh;
-    display: flex;
+    min-height: 70vh;
+    display: grid;
     place-items: center;
     overflow: hidden;
 }
@@ -119,12 +119,9 @@ a {
     position: absolute;
     inset: 0;
     background-position: center;
-    background-size: 120%;
-    transform-origin: center;
-    transform: scale(1.15); /* või 1.2 */
+    background-size: cover;
     background-repeat: no-repeat;
     will-change: transform;
-    transform: translateZ(0);
 }
 
 .fx {
