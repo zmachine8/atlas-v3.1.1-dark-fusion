@@ -65,57 +65,70 @@
   revealElements.forEach(el => observer.observe(el));
 
   /* ----------------------------------------------------------
-     MOUSE PARALLAX (ainus parallax – scroll on eemaldatud)
+     COMBINED PARALLAX – MOUSE + SCROLL
      ----------------------------------------------------------
      – Hiire liikumine tekitab X/Y nihke
-     – Iga kihi tugevust saab määrata data-parallax attribuudiga
-     – transform kirjutatakse ainult SIIN (vältimaks konflikte)
+     – Scrollimine tekitab vertikaalse sügavuse
+     – Mõlemad töötavad koos ühe transform-iga
      ---------------------------------------------------------- */
 
+  const layers = document.querySelectorAll('[data-parallax]');
+  const light = document.querySelector('.layer.light');
+  
+  let mouseX = 0;
+  let mouseY = 0;
+  let scrollY = 0;
+
+  const intensity = 25; // mouse parallax tugevus
+
   if (!prefersReduced) {
-    const layers = document.querySelectorAll('[data-parallax]');
-    const light = document.querySelector('.layer.light'); // valgusefekt, kui olemas
-
-    let mouseX = 0;
-    let mouseY = 0;
-
-    const intensity = 25; // üldine tugevus (füüsiline kauguse illusioon)
-
-    // ekraani kespunkt – hiire liikumise normaliseerimiseks
+    // ekraani keskpunkt
     const midX = window.innerWidth / 2;
     const midY = window.innerHeight / 2;
 
     // Hiire liikumise kuulamine
     window.addEventListener('mousemove', e => {
-      // väärtus vahemikus -1 kuni 1
       mouseX = (e.clientX - midX) / midX;
       mouseY = (e.clientY - midY) / midY;
     });
+  }
 
-    const tick = () => {
-      layers.forEach(el => {
-        // Kihi individuaalne tugevus HTML-s määratud:
-        // nt: data-parallax="0.08"
-        const r = parseFloat(el.dataset.parallax) || 0.06;
+  // Scrolli kuulamine
+  window.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
+  }, { passive: true });
 
-        // Hiire liikumise põhine X/Y nihe
-        const moveX = -mouseX * intensity * r;
-        const moveY = -mouseY * intensity * (r * 0.4); // Y liikumine väiksem
+  // Ühtne animatsioonitsükkel – kombineerib mõlemad efektid
+  const tick = () => {
+    if (prefersReduced) return;
 
-        // Ühtne transform kõigile kihtidele
-        el.style.transform = `translate(${moveX}px, ${moveY}px)`;
-      });
+    layers.forEach(el => {
+      const r = parseFloat(el.dataset.parallax) || 0.06;
 
-      // Valguskihi (kui olemas) dünaamiline läbipaistvus
-      if (light) {
-        const glow = 0.5 + mouseX * 0.4;
-        light.style.opacity = Math.max(0.2, Math.min(0.9, glow));
-      }
+      // MOUSE PARALLAX
+      const moveX = -mouseX * intensity * r;
+      const moveY = -mouseY * intensity * (r * 0.4);
 
-      requestAnimationFrame(tick);
-    };
+      // SCROLL PARALLAX (layers move at different speeds creating depth)
+      // Lower parallax values = slower = appear farther
+      // Higher parallax values = faster = appear closer
+      const scrollOffset = scrollY * r;
 
-    tick(); // käivitame animatsioonitsükli
+      // Kombineeritud transform
+      el.style.transform = `translate(${moveX}px, ${moveY + scrollOffset}px)`;
+    });
+
+    // Light layer opacity
+    if (light) {
+      const glow = 0.5 + mouseX * 0.4;
+      light.style.opacity = Math.max(0.2, Math.min(0.9, glow));
+    }
+
+    requestAnimationFrame(tick);
+  };
+
+  if (!prefersReduced) {
+    tick();
   }
 
   /* ----------------------------------------------------------
