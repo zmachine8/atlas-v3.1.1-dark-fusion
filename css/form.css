@@ -1,57 +1,61 @@
 form.comment-form {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.6rem;
-    background: rgb(255 255 255 / 5%);
-    border: 1px solid rgb(255 255 255 / 10%);
-    padding: 1.2rem 1.5rem;
+    gap: 1rem;
+
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
     border-radius: 1rem;
-    max-width: 420px;
-    margin: 2rem auto;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+
+    padding: 2rem;
+    max-width: 650px;
+    margin: 6rem auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
 }
 
 form.comment-form label {
-    color: #ccc;
     font-size: 0.95rem;
-    margin-bottom: 0.3rem;
+    color: var(--muted2);
 }
 
 form.comment-form input,
 form.comment-form textarea {
     width: 100%;
-    background: rgb(255 255 255 / 8%);
-    color: #fff;
-    border: 1px solid rgb(255 255 255 / 15%);
-    border-radius: 0.5rem;
-    padding: 0.6rem 0.8rem;
-    font-family: inherit;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
+    padding: 0.9rem 1rem;
+
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 0.6rem;
+
+    color: var(--fg);
+    font-size: 1rem;
+
+    transition: border-color 0.25s ease, background 0.25s ease;
 }
 
 form.comment-form input:focus,
 form.comment-form textarea:focus {
-    outline: none;
-    border-color: #6cf;
-    box-shadow: 0 0 6px #6cf3;
+    border-color: var(--brand1);
+    background: rgba(255,255,255,0.12);
 }
 
 form.comment-form button {
-    background: linear-gradient(135deg, #0078ff, #00c6ff);
-    color: white;
+    align-self: flex-start;
+
+    background: linear-gradient(135deg, var(--brand1), var(--brand2));
     border: none;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
+    border-radius: 0.6rem;
+
+    padding: 0.7rem 1.4rem;
     font-size: 1rem;
+    color: white;
+
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 form.comment-form button:hover {
-    background: linear-gradient(135deg, #0af, #3df);
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgb(0 200 255 / 40%);
+    box-shadow: 0 8px 20px rgba(0, 200, 255, 0.25);
 }
