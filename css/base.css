@@ -316,21 +316,3 @@ footer.site-footer {
         flex-direction: column;
     }
 }
-
-/* PARALLAX LAYER FIX – kõik kihid peavad 100% ala katma */
-.layer {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 115%; /* ÕIGE: mitte liiga suur, mitte liiga väike */
-}
-.hero, .scene {
-    position: relative;
-    min-height: 100vh;
-    overflow: hidden;
-}
