@@ -145,26 +145,6 @@ a {
     text-align: center;
 }
 
-/* Pealkirjad – solid ink + overlay shine (::after) */
-
-/* ==========================================================
-   SECTION: TEXT / HEADING EFFECTS
-   ----------------------------------------------------------
-   - h1,h2 = käsikirjafont, shine-sweep (::after)
-   - .script = väiksemad sarnased efektid
-   ========================================================== */
-h1, h2, .script {
-    font-family: "Dancing Script", cursive;
-    font-weight: 700;
-    line-height: 1.05;
-    font-size: clamp(28px, 6vw, 60px);
-    color: #f8fafc;
-    text-shadow: 0 2px 18px rgb(255 255 255 / 8%), 0 0 12px var(--brand-glow);
-    position: relative;
-    filter: blur(0);
-    opacity: 1;
-    text-align: center;
-}
 
 [data-reveal] {
     opacity: 0;
@@ -312,4 +292,49 @@ footer.site-footer {
     .media-container.reverse {
         flex-direction: column;
     }
+}
+
+
+/* ==========================================================
+   ADAPTIVE HEADING SYSTEM — ATLAS Dark Fusion
+   ----------------------------------------------------------
+   H1  = hero + lehe põhipealkiri
+   H2  = sektsiooni pealkiri
+   H3  = alasektsiooni pealkiri
+   .script = dekoratiivne käsikirjastiili pealkiri (h3 suuruses)
+   ========================================================== */
+
+/* Ühine stiil kõikidele */
+h1, h2, h3, .script {
+    font-family: "Dancing Script", cursive;
+    font-weight: 700;
+    line-height: 1.05;
+    color: #f8fafc;
+    text-shadow: 
+        0 2px 18px rgb(255 255 255 / 8%), 
+        0 0 12px var(--brand-glow);
+    position: relative;
+    text-align: center;
+}
+
+/* H1 – kõige suurem, hero-ala */
+h1 {
+    font-size: clamp(40px, 8vw, 62px);
+}
+
+/* H2 – sektsiooni pealkiri */
+h2 {
+    font-size: clamp(32px, 6vw, 58px);
+}
+
+/* H3 – alampealkiri */
+h3 {
+    font-size: clamp(26px, 4vw, 50px);
+    opacity: 0.95;
+}
+
+/* Dekoratiivne script header (sinu kaardid & media-tekst) */
+.script {
+    font-size: clamp(24px, 4vw, 58px);
+    opacity: 0.9;
 }
