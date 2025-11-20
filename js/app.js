@@ -15,25 +15,7 @@
     });
   }
 
-  /* ==========================================================
-     SCROLL PARALLAX — lisab sügavust vastavalt scrollimisele
-     ----------------------------------------------------------
-     - mõjutab kõiki elemente, millel on [data-parallax]
-     - liikumine on väga pehme (muudetav intensity väärtus)
-     ========================================================== */
-  const parallaxEls = Array.from(document.querySelectorAll('[data-parallax]'));
-  const onScroll = ()=>{
-    if (prefersReduced) return;
-    const y = window.scrollY;
-    for (const el of parallaxEls){
-      const r = parseFloat(el.dataset.parallax || '0.08');
-      el.style.transform = `translateY(${-(y*r)}px)`;
-    }
-  };
-  document.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
-
-  // Blur-in reveal (shine handled in CSS ::after animation)
+    // Blur-in reveal (shine handled in CSS ::after animation)
   const io = new IntersectionObserver((entries)=>{
     for (const e of entries){
       if (e.isIntersecting){
