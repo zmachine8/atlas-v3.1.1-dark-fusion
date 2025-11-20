@@ -1,57 +1,78 @@
+/* ================================
+   MINIMAL / GLITCH-STYLE CONTACT FORM
+   Like Danielix's experimental design
+   ================================ */
+
 form.comment-form {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.6rem;
-    background: rgb(255 255 255 / 5%);
-    border: 1px solid rgb(255 255 255 / 10%);
-    padding: 1.2rem 1.5rem;
-    border-radius: 1rem;
-    max-width: 420px;
-    margin: 2rem auto;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+    gap: 1.0rem;
+    max-width: 680px;
+    margin: 3rem auto;
+    padding: 0 1rem;
 }
 
+/* LABELS – uppercase, spaced, subtle */
 form.comment-form label {
-    color: #ccc;
-    font-size: 0.95rem;
-    margin-bottom: 0.3rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--brand1);
+    display: block;
+    margin-bottom: 0.4rem;
 }
 
+/* INPUTS – only bottom border */
 form.comment-form input,
 form.comment-form textarea {
     width: 100%;
-    background: rgb(255 255 255 / 8%);
-    color: #fff;
-    border: 1px solid rgb(255 255 255 / 15%);
-    border-radius: 0.5rem;
-    padding: 0.6rem 0.8rem;
-    font-family: inherit;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
+    padding: 0.6rem 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--brand1);
+    color: var(--brand1);
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    outline: none;
+    transition: border-color 0.25s ease, color 0.25s ease;
+    font-family: Inter, sans-serif;
 }
 
 form.comment-form input:focus,
 form.comment-form textarea:focus {
-    outline: none;
-    border-color: #6cf;
-    box-shadow: 0 0 6px #6cf3;
+    border-bottom-color: var(--brand1);
+    color: var(--brand1);
 }
 
+/* Textarea size */
+form.comment-form textarea {
+    min-height: 50px;
+    resize: vertical;
+}
+
+/* BUTTON – outline style, modern, subtle */
 form.comment-form button {
-    background: linear-gradient(135deg, #0078ff, #00c6ff);
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
+    align-self: flex-start;
+    padding: 0.7rem 2.2rem;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background: 
+        linear-gradient(#0b0f1a, #0b0f1a) padding-box,
+        linear-gradient(90deg, var(--brand1), var(--brand2)) border-box;
+    color: var(--brand1);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 3px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
 }
 
+/* BUTTON hover effect – inverted, like the image */
 form.comment-form button:hover {
-    background: linear-gradient(135deg, #0af, #3df);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgb(0 200 255 / 40%);
+    background: linear-gradient(90deg, var(--brand1), var(--brand2));
+    color: #0b0f1a; /* tume tekst, et eristuks */
+    border-color: transparent; 
 }
+

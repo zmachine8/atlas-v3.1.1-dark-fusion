@@ -145,26 +145,6 @@ a {
     text-align: center;
 }
 
-/* Pealkirjad – solid ink + overlay shine (::after) */
-
-/* ==========================================================
-   SECTION: TEXT / HEADING EFFECTS
-   ----------------------------------------------------------
-   - h1,h2 = käsikirjafont, shine-sweep (::after)
-   - .script = väiksemad sarnased efektid
-   ========================================================== */
-h1, h2, .script {
-    font-family: "Dancing Script", cursive;
-    font-weight: 700;
-    line-height: 1.05;
-    font-size: clamp(28px, 6vw, 60px);
-    color: #f8fafc;
-    text-shadow: 0 2px 18px rgb(255 255 255 / 8%), 0 0 12px var(--brand-glow);
-    position: relative;
-    filter: blur(0);
-    opacity: 1;
-    text-align: center;
-}
 
 [data-reveal] {
     opacity: 0;
@@ -223,7 +203,7 @@ p {
 
 @media (width <= 900px) {
     .cards {
-        grid-template-columns:repeat(2, 1fr);
+        grid-template-columns: 1fr;
     }
 }
 
@@ -292,7 +272,8 @@ footer.site-footer {
     margin-left: 2rem;
 }
 
-.media-text h3 {
+/* Juhib media-teksti paigutust */
+.media-text h3, .media-text h2 {
     margin-bottom: 1rem;
     text-align: left;
 }
@@ -301,6 +282,7 @@ footer.site-footer {
     line-height: 1.6;
     color: var(--muted2);
     max-width: 480px;
+    text-align: left;
 }
 
 @media (max-width: 768px) {
@@ -311,5 +293,91 @@ footer.site-footer {
 
     .media-container.reverse {
         flex-direction: column;
+    }
+}
+
+
+/* ==========================================================
+   ADAPTIVE HEADING SYSTEM — ATLAS Dark Fusion
+   ----------------------------------------------------------
+   H1  = hero + lehe põhipealkiri
+   H2  = sektsiooni pealkiri
+   H3  = alasektsiooni pealkiri
+   .script = dekoratiivne käsikirjastiili pealkiri (h3 suuruses)
+   ========================================================== */
+
+/* Ühine stiil kõikidele */
+h1, h2, h3, .script {
+    font-family: "Dancing Script", cursive;
+    font-weight: 700;
+    line-height: 1.05;
+    color: #f8fafc;
+    text-shadow: 
+        0 2px 18px rgb(255 255 255 / 8%), 
+        0 0 12px var(--brand-glow);
+    position: relative;
+    text-align: center;
+}
+
+/* H1 – kõige suurem, hero-ala */
+h1 {
+    font-size: clamp(40px, 8vw, 62px);
+}
+
+/* H2 – sektsiooni pealkiri */
+h2 {
+    font-size: clamp(34px, 6vw, 58px);
+}
+
+/* H3 – alampealkiri */
+h3 {
+    font-size: clamp(30px, 4vw, 50px);
+    opacity: 0.95;
+}
+
+/* Dekoratiivne script header (sinu kaardid & media-tekst) */
+.script {
+    font-size: clamp(34px, 4vw, 50px);
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .media-text h2,
+    .media-text h3 {
+        text-align: left !important;
+    }
+}
+
+/* UNIVERSAALNE TABLET PORTRAIT LAYOUT (kuni 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .media-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .media-text {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .media-text h2,
+    .media-text h3 {
+        text-align: left;
+    }
+
+    .media-text p {
+        text-align: left;
+    }
+
+    .media-image img,
+    .media-video video {
+        height: 280px;
+    }
+    .media-container.reverse {
+    flex-direction: column;
+    }
+    .cards {
+        grid-template-columns: 1fr;
     }
 }

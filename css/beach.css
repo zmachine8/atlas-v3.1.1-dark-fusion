@@ -7,20 +7,45 @@
    - overlay = valguse toonikiht
    ========================================================== */
 
+/* TAEVAS – ülemine kiht, mis annab üldise toonuse ja taustavärvi */
 .hero .sky {
+    /* Vertikaalne gradient ülevalt alla:
+       - #1a2238 → tume sinakas toon üleval
+       - #253055 → veidi heledam, hallikam toon all
+       Loob õrna õhtu- või koidutaeva meeleolu. */
     background-image: linear-gradient(180deg, #1a2238, #253055);
 }
 
+/* MERI – peamine pilt, mis kujutab ookeani või rannajoont */
 .hero .sea {
+    /* Taustapilt (meri või horisont) */
     background-image: url('https://images.unsplash.com/photo-1501959915551-4e8a04a3e7d5?auto=format&fit=crop&w=1600&q=80');
+
+    /* Pildi asukoht – hoiab horisondi allosas keskel */
     background-position: center bottom;
+
+    /* Filtrid muudavad pildi veidi elavamaks ja selgemaks:
+       - brightness(.95): teeb pisut tumedamaks
+       - saturate(1.08): lisab veidi värvi
+       - contrast(1.02): suurendab kontrasti pisut, et meri näeks sügavam välja */
     filter: brightness(.95) saturate(1.08) contrast(1.02);
 }
 
-/* Ranna pildi soft-light */
+/* LIIVAKIHT – pehme "soft-light" efekt rannapildile */
 .hero .sand {
+    /* Rannaliiva või valguse peegeldust kujutav pilt */
     background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
+
+    /* "soft-light" segamisrežiim segab seda õrnalt merepildiga,
+       lisades soojema ja loomulikuma valguseefekti */
     mix-blend-mode: soft-light;
+
+    /* Täielik läbipaistmatus (nähtav, kuid mitte liiga tugev, sest soft-light segab seda nagunii) */
     opacity: 1;
+
+    /* Filtrid annavad rannale sooja ja helendava tunde:
+       - sepia(.08): lisab kergelt kuldse tooni
+       - saturate(1.1): teeb värvid veidi erksamaks
+       - brightness(1.05): lisab üldist heledust */
     filter: sepia(.08) saturate(1.1) brightness(1.05);
 }

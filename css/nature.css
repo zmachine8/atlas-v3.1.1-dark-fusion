@@ -9,29 +9,59 @@
    ==========================================================
    =========================== */
 
+/* PÕHIKIHT – taeva värvigradient kõige taga */
 .scene .sky {
+    /* Vertikaalne gradient ülevalt alla: tume sinakas toon -> veidi heledam toon */
     background-image: linear-gradient(180deg, #0b0f1a, #0e1726);
 }
 
+/* TAGAKIHT – kauged mäed või horisont */
 .scene .back {
+    /* Taustapilt, mis katab taga oleva taeva */
     background-image: url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1600&q=80');
+
+    /* Veidi tumedam ja vähem küllastunud – tekitab kaugusefekti */
     filter: brightness(.85) saturate(.95);
 }
 
+/* KESKKIHT – keskmine kaugus (mäed, orud jne) */
 .scene .mid {
+    /* Sama pilt mis .back kihis, kuid veidi heledam ja värvikam */
     background-image: url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1600&q=80');
+
+    /* Annab kihile rohkem erksust – tundub vaatajale lähemal */
     filter: brightness(.92) saturate(1.05);
 }
 
+/* ESIKIHT – esiplaan, nt tumedad puud või kaljud */
 .scene .front {
+    /* Esiotsa pilt (tumedamad objektid, mis on vaatajale lähemal) */
     background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80');
+
+    /* Väike heleduse ja värviküllastuse korrigeerimine */
     filter: brightness(.9) saturate(1.0);
+
+    /* "multiply" segamisrežiim tumendab seda kihti,
+       segades selle allolevate kihtidega (nagu Photoshopis) */
     mix-blend-mode: multiply;
+
+    /* Läbipaistvus – laseb tagumistel kihtidel kergelt läbi kumada */
     opacity: .9;
 }
 
+/* VÄRVIKIHT – üldine toon/valguse varjund */
 .scene .paint {
-    background: linear-gradient(180deg, rgb(245 200 120 / 22%), rgb(20 24 38 / 45%));
+    /* Vertikaalne gradient, mis lisab sooja valguse ülevalt ja tumeda tooni alt */
+    background: linear-gradient(
+        180deg,
+        rgb(245 200 120 / 22%),  /* soe kuldne toon (valgus üleval) */
+        rgb(20 24 38 / 45%)      /* jahe tume toon (vari all) */
+    );
+
+    /* "soft-light" segamisrežiim annab õrna värviefekti kõigile allolevatele kihtidele */
     mix-blend-mode: soft-light;
+
+    /* Läbipaistvus – et efekt jääks pehme ja mitte liiga tugev */
     opacity: .6;
 }
+
