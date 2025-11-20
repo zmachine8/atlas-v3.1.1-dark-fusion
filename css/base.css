@@ -324,17 +324,17 @@ h1 {
 
 /* H2 – sektsiooni pealkiri */
 h2 {
-    font-size: clamp(40px, 6vw, 58px);
+    font-size: clamp(34px, 6vw, 58px);
 }
 
 /* H3 – alampealkiri */
 h3 {
-    font-size: clamp(38px, 4vw, 50px);
+    font-size: clamp(34px, 4vw, 50px);
     opacity: 0.95;
 }
 
 /* Dekoratiivne script header (sinu kaardid & media-tekst) */
 .script {
-    font-size: clamp(38px, 4vw, 58px);
+    font-size: clamp(34px, 4vw, 58px);
     opacity: 0.9;
 }
