@@ -203,7 +203,7 @@ p {
 
 @media (width <= 900px) {
     .cards {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 1fr;
     }
 }
 
@@ -378,6 +378,6 @@ h3 {
     flex-direction: column;
     }
     .cards {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 1fr;
     }
 }
