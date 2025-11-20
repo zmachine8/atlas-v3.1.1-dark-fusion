@@ -373,4 +373,8 @@ h3 {
     .media-video video {
         height: 280px;
     }
+    .media-container.reverse {
+    flex-direction: column;
+    }
+
 }
