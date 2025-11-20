@@ -1,115 +1,157 @@
-/* ATLAS v3.1.1 — Dark Hybrid Fusion (bugfix)
-   Fix: tekst ei muutu enam läbipaistvaks, kui shine efekt käivitub.
-   Lähenemine: shine efekt töötab ::after overlay peal; pealkiri hoiab kindlat värvi.
+/* ATLAS v3.1.1 — Dark Hybrid Fusion (uuendatud)
+   Parallax: ainult hiirega (scroll-parallax eemaldatud)
+   Transformi pipeline ühtlustatud: üks koht, mis liigutab kihte.
+   Prefers-reduced-motion arvestatud kõikjal.
 */
-(()=>{
+
+(() => {
   const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Mobile nav
+  /* ----------------------------------------------------------
+     MOBIILIMENÜÜ – BURGERI AVAMINE/SULGEMINE
+     ---------------------------------------------------------- */
+
   const burger = document.querySelector('[data-burger]');
   const nav = document.querySelector('[data-nav]');
-  if (burger && nav){
-    burger.addEventListener('click', ()=>{
+
+  if (burger && nav) {
+    burger.addEventListener('click', () => {
+      // Lülitame menüüd ja burgeri animatsiooni
       nav.classList.toggle('open');
-      burger.setAttribute('aria-expanded', nav.classList.contains('open'));
+      burger.classList.toggle('open');
     });
   }
 
-    // Blur-in reveal (shine handled in CSS ::after animation)
-  const io = new IntersectionObserver((entries)=>{
-    for (const e of entries){
-      if (e.isIntersecting){
-        const el = e.target;
-        if (!prefersReduced){
-          el.animate(
-              [{ filter:'blur(8px)', opacity:0 }, { filter:'blur(0px)', opacity:1 }],
-              { duration: 700, easing:'cubic-bezier(.2,.8,.2,1)', fill:'forwards' }
-          );
-        } else {
-          el.style.opacity = 1;
-        }
-        el.classList.add('reveal'); // triggers ::after shine sweep once
-        io.unobserve(el);
+  /* ----------------------------------------------------------
+     LEHELEMENTIDE AVALDAMINE SCROLLIMISEL (fade + unblur)
+     ---------------------------------------------------------- */
+
+  const revealElements = document.querySelectorAll('[data-reveal]');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;   // ainult element, mis on ekraanil
+
+      const el = entry.target;
+
+      if (prefersReduced) {
+        // Kui kasutaja soovib vähem liikumist → täisnähtav kohe
+        el.style.opacity = 1;
+        el.style.filter = 'none';
+      } else {
+        // Sujuv ilmumine (blur → selge)
+        el.animate(
+          [
+            { opacity: 0, filter: 'blur(8px)' },
+            { opacity: 1, filter: 'blur(0)' }
+          ],
+          {
+            duration: 700,
+            easing: 'cubic-bezier(.2,.8,.2,1)',
+            fill: 'forwards'
+          }
+        );
       }
-    }
-  }, {threshold: 0.25});
-  document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
-})();
 
-/* ==========================================================
-   MOUSE PARALLAX — lisab sügavust vastavalt hiire liikumisele
-   ----------------------------------------------------------
-   - mõjutab kõiki elemente, millel on [data-parallax]
-   - liikumine on väga pehme (muudetav intensity väärtus)
-   ========================================================== */
-(() => {
-  const layers = document.querySelectorAll('[data-parallax]');
-  const light = document.querySelector('.layer.light');
-  const intensity = 25; // ⟵ suurem = tugevam liikumine
-  let mouseX = 0, mouseY = 0;
+      // Lõplik klass, mida saab CSS-is kasutada
+      el.classList.add('reveal');
 
-  // reaalne akna keskpunkt
-  const midX = window.innerWidth / 2;
-  const midY = window.innerHeight / 2;
+      // Ei ole vaja uuesti jälgida
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.1 });
 
-  window.addEventListener('mousemove', (e) => {
-    // arvuta nihke suhe (-1 ... +1)
-    const relX = (e.clientX - midX) / midX;
-    const relY = (e.clientY - midY) / midY;
-    mouseX = relX;
-    mouseY = relY;
-  });
+  // Märgime kõik ilmuvad elemendid vaatlejale
+  revealElements.forEach(el => observer.observe(el));
 
-  // sujuv animatsioon — rakendatakse igale frame’ile
-  const update = () => {
-    layers.forEach(el => {
-      const r = parseFloat(el.dataset.parallax || '0.05');
-      // lisame hiireefekti — väiksem mõju kaugematel kihtidel
-      const moveX = -mouseX * intensity * r;
-      const moveY = -mouseY * intensity * r;
-      // ühendame olemasoleva scroll-parallax transformi
-      const currentY = el.style.transform.match(/translateY\(([-0-9.]+)px\)/);
-      const scrollY = currentY ? parseFloat(currentY[1]) : 0;
-      el.style.transform = `translate(${moveX}px, ${scrollY + moveY}px)`;
+  /* ----------------------------------------------------------
+     MOUSE PARALLAX (ainus parallax – scroll on eemaldatud)
+     ----------------------------------------------------------
+     – Hiire liikumine tekitab X/Y nihke
+     – Iga kihi tugevust saab määrata data-parallax attribuudiga
+     – transform kirjutatakse ainult SIIN (vältimaks konflikte)
+     ---------------------------------------------------------- */
+
+  if (!prefersReduced) {
+    const layers = document.querySelectorAll('[data-parallax]');
+    const light = document.querySelector('.layer.light'); // valgusefekt, kui olemas
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    const intensity = 25; // üldine tugevus (füüsiline kauguse illusioon)
+
+    // ekraani kespunkt – hiire liikumise normaliseerimiseks
+    const midX = window.innerWidth / 2;
+    const midY = window.innerHeight / 2;
+
+    // Hiire liikumise kuulamine
+    window.addEventListener('mousemove', e => {
+      // väärtus vahemikus -1 kuni 1
+      mouseX = (e.clientX - midX) / midX;
+      mouseY = (e.clientY - midY) / midY;
     });
 
-    /* ==========================================================
-   VALGUSLOOGIKA - VALGUSE INTENSIIVSUS HIIRE SUUNA JÄRGI
-   ========================================================== */
-    if (light) {
-      // arvuta uus läbipaistmatus (väärtus 0.2–0.9)
-      const opacity = 0.5 + mouseX * 0.4;
-      light.style.opacity = Math.max(0.2, Math.min(0.9, opacity));
-    }
+    const tick = () => {
+      layers.forEach(el => {
+        // Kihi individuaalne tugevus HTML-s määratud:
+        // nt: data-parallax="0.08"
+        const r = parseFloat(el.dataset.parallax) || 0.06;
 
-    requestAnimationFrame(update);
-  };
-  update();
+        // Hiire liikumise põhine X/Y nihe
+        const moveX = -mouseX * intensity * r;
+        const moveY = -mouseY * intensity * (r * 0.4); // Y liikumine väiksem
+
+        // Ühtne transform kõigile kihtidele
+        el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      });
+
+      // Valguskihi (kui olemas) dünaamiline läbipaistvus
+      if (light) {
+        const glow = 0.5 + mouseX * 0.4;
+        light.style.opacity = Math.max(0.2, Math.min(0.9, glow));
+      }
+
+      requestAnimationFrame(tick);
+    };
+
+    tick(); // käivitame animatsioonitsükli
+  }
+
+  /* ----------------------------------------------------------
+     KOMMENTAARIDE SÜSTEEM (lihtne lokaalne lisamine)
+     ---------------------------------------------------------- */
+
+  const commentForm = document.querySelector('#comment-form');
+  const commentList = document.querySelector('#comment-list');
+
+  if (commentForm && commentList) {
+    commentForm.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const nameInput = commentForm.querySelector('input[name="name"]');
+      const commentInput = commentForm.querySelector('textarea[name="comment"]');
+
+      const name = nameInput.value.trim();
+      const comment = commentInput.value.trim();
+      if (!name || !comment) return; // mõlemad väljad peavad olema täidetud
+
+      // Loome ühe kommentaari bloki
+      const entry = document.createElement('div');
+      entry.className = 'comment-entry';
+
+      const strong = document.createElement('strong');
+      strong.textContent = name;
+
+      const p = document.createElement('p');
+      p.textContent = comment;
+
+      entry.appendChild(strong);
+      entry.appendChild(p);
+      commentList.append(entry);
+
+      commentForm.reset(); // puhastame vormi
+    });
+  }
+
 })();
-
-
-/* ==========================================================
-   KOMMENTAARI VORMI LOOGIKA — kuvab kommentaarid otse lehel
-   ========================================================== */
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('commentForm');
-  const list = document.getElementById('commentList');
-
-  if (!form) return;
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const name = document.getElementById('name').value.trim();
-    const comment = document.getElementById('comment').value.trim();
-
-    if (name && comment) {
-      const div = document.createElement('div');
-      div.classList.add('comment');
-      div.innerHTML = `<strong>${name}</strong><p>${comment}</p>`;
-      list.prepend(div);
-
-      form.reset();
-    }
-  });
-});
