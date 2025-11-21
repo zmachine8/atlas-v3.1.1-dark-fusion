@@ -1,3 +1,9 @@
+/* ==========================================================
+   ATLAS Dark Fusion — Base Stylesheet
+   ----------------------------------------------------------
+   Värvisüsteem, paigutus, üldised stiilid
+   ========================================================== */
+
 :root {
     --bg: #0b0f1a;
     --fg: #e2e8f0;
@@ -101,6 +107,10 @@ a {
         display: none;
         flex-direction: column;
     }
+
+    .site-nav.open {
+        display: flex;
+    }
 }
 
 .hero, .scene {
@@ -118,6 +128,12 @@ a {
     background-size: cover;
     background-repeat: no-repeat;
     will-change: transform;
+}
+
+.fx {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
 }
 
 .overlay {
@@ -140,6 +156,10 @@ a {
     opacity: 0;
 }
 
+[data-reveal].reveal {
+    opacity: 1;
+}
+
 /* the sweeping light */
 h1::after, h2::after, .script::after {
     content: "";
@@ -151,6 +171,11 @@ h1::after, h2::after, .script::after {
     opacity: 0;
     pointer-events: none;
     transform: skewX(-8deg);
+}
+
+[data-reveal].reveal::after {
+    opacity: 1;
+    animation: shine-sweep .9s cubic-bezier(.2, .8, .2, 1) both;
 }
 
 @keyframes shine-sweep {
@@ -271,6 +296,10 @@ footer.site-footer {
         flex-direction: column;
         text-align: center;
     }
+
+    .media-container.reverse {
+        flex-direction: column;
+    }
 }
 
 
@@ -350,6 +379,9 @@ h3 {
     .media-image img,
     .media-video video {
         height: 280px;
+    }
+    .media-container.reverse {
+    flex-direction: column;
     }
     .cards {
         grid-template-columns: 1fr;
