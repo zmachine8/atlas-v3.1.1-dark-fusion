@@ -2,7 +2,9 @@
    Parallax: ainult hiirega (scroll-parallax eemaldatud)
    Transformi pipeline ühtlustatud: üks koht, mis liigutab kihte.
    Prefers-reduced-motion arvestatud kõikjal.
-*/
+   Mobiilimenüü, lehtelementide avaldamine, parallaxid - Reimo Zukker
+   Kommentaaride süsteem - Nikolas Arro
+   */
 
 (() => {
   const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
