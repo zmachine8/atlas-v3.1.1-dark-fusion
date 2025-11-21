@@ -61,7 +61,7 @@
       // Ei ole vaja uuesti jälgida
       observer.unobserve(el);
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.25 });
 
   // Märgime kõik ilmuvad elemendid vaatlejale
   revealElements.forEach(el => observer.observe(el));
@@ -189,7 +189,7 @@
       const el = entry.target;
 
       // Stagger (0ms → 150ms → 300ms → 450ms …)
-      staggerDelay += 150;
+      staggerDelay += 200;
 
       if (prefersReduced) {
         el.style.opacity = 1;
@@ -214,8 +214,42 @@
 
       observer.unobserve(el);
     });
-  }, { threshold: 0.2 });
+  }, { threshold: 0.25 });
 
   revealEls.forEach(el => observer.observe(el));
 
+})();
+
+/* ----------------------------------------------------------
+   KONTAKTVORMI KONTROLL – ilus oma veateade
+   ---------------------------------------------------------- */
+
+(() => {
+  const form = document.querySelector('[data-contact-form]');
+  if (!form) return;
+
+  const messageInput = form.querySelector('textarea[name="message"]');
+  const errorBox = form.querySelector('[data-error]');
+
+  if (!messageInput || !errorBox) return;
+
+  form.addEventListener('submit', (event) => {
+    const value = messageInput.value.trim();
+
+    if (!value) {
+      event.preventDefault(); // ära saada vormi
+      errorBox.hidden = false;
+      errorBox.textContent = 'Palun kirjuta sõnum enne saatmist.';
+      messageInput.focus();
+    } else {
+      errorBox.hidden = true;
+    }
+  });
+
+  // kui kasutaja hakkab kirjutama, peidame vea ära
+  messageInput.addEventListener('input', () => {
+    if (!errorBox.hidden) {
+      errorBox.hidden = true;
+    }
+  });
 })();

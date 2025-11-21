@@ -85,6 +85,18 @@
 
       <label for="comment">Sõnum:</label>
       <textarea id="comment" name="comment" rows="4" required></textarea>
+      <form class="comment-form" data-contact-form novalidate>
+
+        <label>Your Message</label>
+        <textarea name="message"></textarea>
+
+        <!-- meie ilus kast, mis juba CSS-is olemas -->
+        <p class="form-error" data-error hidden>
+        Palun sisesta sõnum enne saatmist.
+        </p>
+
+    <button type="submit">Saada</button>
+</form>
 
       <button type="submit">Saada</button>
     </form>
