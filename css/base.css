@@ -152,13 +152,20 @@ a {
 }
 
 
+/* Esialgne olek (peidetud + udune) */
 [data-reveal] {
     opacity: 0;
+    filter: blur(8px);
+    transform: translateY(12px);
 }
 
+/* Kui JS lisab .reveal, siis lõppolek */
 [data-reveal].reveal {
     opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
 }
+
 
 /* the sweeping light */
 h1::after, h2::after, .script::after {
