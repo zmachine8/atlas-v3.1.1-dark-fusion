@@ -172,7 +172,7 @@
 })();
 
 /* ----------------------------------------------------------
-   DELUXE REVEAL SYSTEM 2.0 — Stagger + Micro-Parallax
+   REVEAL SYSTEM 2.0 — Stagger + Micro-Parallax
    ---------------------------------------------------------- */
 
 (() => {
