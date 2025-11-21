@@ -78,21 +78,33 @@
     </section>
 </main>
 <footer class="site-footer">
-  <div class="comment-section">
-    <h3 class="mt-2">Võta meiega ühendust</h3>
-    <form class="comment-form" id="commentForm">
-      <label for="name">Teie nimi:</label>
-      <input type="text" id="name" name="name" required>
+    <div class="comment-section">
+        <h3 class="mt-2">Võta meiega ühendust</h3>
 
-      <label for="comment">Sõnum:</label>
-      <textarea id="comment" name="comment" rows="4" required></textarea>
+        <form class="comment-form" id="commentForm" data-contact-form novalidate>
 
-      <button type="submit">Saada</button>
-    </form>
+            <label for="name">Teie nimi:</label>
+            <input type="text" id="name" name="name" required>
 
-    <div class="comment-list" id="commentList"></div>
-  </div>
-  <p>© ATLAS v3.1.1 • Loodus</p>
+            <label for="comment">Sõnum:</label>
+            <textarea id="comment" name="message" rows="4" required></textarea>
+
+            <!-- ilus oma veateate kast -->
+            <p class="form-error" data-error hidden>
+                Palun kirjuta sõnum enne saatmist.
+            </p>
+
+            <!-- eduteade -->
+            <p class="form-success" data-success hidden>
+                Aitäh! Sõnum saadetud Discordi kanalisse.
+            </p>
+            <button type="submit">Saada</button>
+        </form>
+
+        <div class="comment-list" id="commentList"></div>
+    </div>
+
+    <p>© ATLAS v3.1.1 • Loodus</p>
 </footer>
 </body>
 </html>

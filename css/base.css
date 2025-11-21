@@ -159,12 +159,19 @@ a {
 [data-reveal] {
     opacity: 0;
     filter: blur(10px);
-    transform: translateY(26px);
+    --parallax-x: 0px;
+    --parallax-y: 0px;
+
+    transform: translateY(26px)
+               translate(var(--parallax-x), var(--parallax-y));
+
     transition: opacity .6s ease-out,
                 filter .6s ease-out,
                 transform .6s ease-out;
+
     will-change: opacity, filter, transform;
 }
+
 
 [data-reveal].reveal {
     opacity: 1;
@@ -187,9 +194,11 @@ h1::after, h2::after, .script::after {
     transform: skewX(-8deg);
 }
 
+[data-reveal].reveal h1::after,
 [data-reveal].reveal h2::after,
 [data-reveal].reveal h3::after,
 [data-reveal].reveal .script::after {
+    opacity: 1;
     animation: shine-sweep .9s cubic-bezier(.2, .8, .2, 1) both;
 }
 
@@ -403,3 +412,4 @@ h3 {
         grid-template-columns: 1fr;
     }
 }
+

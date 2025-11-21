@@ -77,32 +77,33 @@
     </section>
 </main>
 <footer class="site-footer">
-  <div class="comment-section">
-    <h3 class="mt-2">Võta meiega ühendust</h3>
-    <form class="comment-form" id="commentForm">
-      <label for="name">Teie nimi:</label>
-      <input type="text" id="name" name="name" required>
+    <div class="comment-section">
+        <h3 class="mt-2">Võta meiega ühendust</h3>
 
-      <label for="comment">Sõnum:</label>
-      <textarea id="comment" name="comment" rows="4" required></textarea>
-      <form class="comment-form" data-contact-form novalidate>
+        <form class="comment-form" id="commentForm" data-contact-form novalidate>
 
-        <label>Your Message</label>
-        <textarea name="message"></textarea>
+            <label for="name">Teie nimi:</label>
+            <input type="text" id="name" name="name" required>
 
-        <!-- meie ilus kast, mis juba CSS-is olemas -->
-        <p class="form-error" data-error hidden>
-        Palun sisesta sõnum enne saatmist.
-        </p>
+            <label for="comment">Sõnum:</label>
+            <textarea id="comment" name="message" rows="4" required></textarea>
 
-    <button type="submit">Saada</button>
-</form>
+            <!-- ilus oma veateate kast -->
+            <p class="form-error" data-error hidden>
+                Palun kirjuta sõnum enne saatmist.
+            </p>
 
-      <button type="submit">Saada</button>
-    </form>
+            <!-- eduteade -->
+            <p class="form-success" data-success hidden>
+                Aitäh! Sõnum saadetud Discordi kanalisse.
+            </p>
 
-    <div class="comment-list" id="commentList"></div>
-  </div>
+            <button type="submit">Saada</button>
+        </form>
+
+        <div class="comment-list" id="commentList"></div>
+    </div>
+
   <p>© ATLAS v3.1.1 • Maantee</p>
 </footer>
 </body>

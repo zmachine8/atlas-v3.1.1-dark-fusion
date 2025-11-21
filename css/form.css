@@ -84,3 +84,13 @@ form.comment-form button:hover {
     color: #fecaca; /* hele punakas (või vali mõni muu) */
     font-size: 0.9rem;
 }
+
+.form-success {
+    margin-top: 0.75rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    background: rgb(34 197 94 / 12%); /* rohekas */
+    color: #bbf7d0;
+    font-size: 0.9rem;
+}
