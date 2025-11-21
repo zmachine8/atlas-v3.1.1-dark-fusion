@@ -170,3 +170,52 @@
   }
 
 })();
+
+/* ----------------------------------------------------------
+   DELUXE REVEAL SYSTEM 2.0 — Stagger + Micro-Parallax
+   ---------------------------------------------------------- */
+
+(() => {
+
+  const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+
+  let staggerDelay = 0;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      const el = entry.target;
+
+      // Stagger (0ms → 150ms → 300ms → 450ms …)
+      staggerDelay += 150;
+
+      if (prefersReduced) {
+        el.style.opacity = 1;
+        el.style.filter = "none";
+        el.style.transform = "none";
+      } else {
+        el.style.transitionDelay = staggerDelay + "ms";
+        el.classList.add("reveal");
+      }
+
+      // Micro-parallax (väga õrn sügavusefekt)
+      el.addEventListener("mousemove", e => {
+        const rect = el.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 5;
+        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 5;
+        el.style.transform = `translateY(0) translate(${x}px, ${y}px)`;
+      });
+
+      el.addEventListener("mouseleave", () => {
+        el.style.transform = "translateY(0)";
+      });
+
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.2 });
+
+  revealEls.forEach(el => observer.observe(el));
+
+})();

@@ -152,19 +152,26 @@ a {
 }
 
 
-/* Esialgne olek (peidetud + udune) */
+/* ----------------------------------------------------------
+   DELUXE REVEAL SYSTEM 2.0 — fade + unblur + slide + glow
+   ---------------------------------------------------------- */
+
 [data-reveal] {
     opacity: 0;
-    filter: blur(8px);
-    transform: translateY(12px);
+    filter: blur(10px);
+    transform: translateY(26px);
+    transition: opacity .6s ease-out,
+                filter .6s ease-out,
+                transform .6s ease-out;
+    will-change: opacity, filter, transform;
 }
 
-/* Kui JS lisab .reveal, siis lõppolek */
 [data-reveal].reveal {
     opacity: 1;
     filter: blur(0);
     transform: translateY(0);
 }
+
 
 
 /* the sweeping light */
@@ -180,10 +187,12 @@ h1::after, h2::after, .script::after {
     transform: skewX(-8deg);
 }
 
-[data-reveal].reveal::after {
-    opacity: 1;
+[data-reveal].reveal h2::after,
+[data-reveal].reveal h3::after,
+[data-reveal].reveal .script::after {
     animation: shine-sweep .9s cubic-bezier(.2, .8, .2, 1) both;
 }
+
 
 @keyframes shine-sweep {
     0% {
