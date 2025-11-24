@@ -2,7 +2,7 @@
    Parallax: ainult hiirega (scroll-parallax eemaldatud)
    Transformi pipeline ühtlustatud: üks koht, mis liigutab kihte.
    Prefers-reduced-motion arvestatud kõikjal.
-   Mobiilimenüü, lehtelementide avaldamine, parallaxid - Reimo Zukker
+   Mobiilimenüü, lehtelementide avaldamine, parallaxid, discordi webhook - Reimo Zukker
    Kommentaaride süsteem - Nikolas Arro
    */
 
@@ -61,7 +61,7 @@
       // Ei ole vaja uuesti jälgida
       observer.unobserve(el);
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.2 });
 
   // Märgime kõik ilmuvad elemendid vaatlejale
   revealElements.forEach(el => observer.observe(el));
@@ -133,40 +133,134 @@
     tick();
   }
 
-  /* ----------------------------------------------------------
-     KOMMENTAARIDE SÜSTEEM (lihtne lokaalne lisamine)
-     ---------------------------------------------------------- */
+})();
 
-  const commentForm = document.querySelector('#comment-form');
-  const commentList = document.querySelector('#comment-list');
+/* ----------------------------------------------------------
+   REVEAL SYSTEM 2.0 — Stagger + Micro-Parallax
+   ---------------------------------------------------------- */
 
-  if (commentForm && commentList) {
-    commentForm.addEventListener('submit', e => {
-      e.preventDefault();
+(() => {
 
-      const nameInput = commentForm.querySelector('input[name="name"]');
-      const commentInput = commentForm.querySelector('textarea[name="comment"]');
+  const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('[data-reveal]');
 
-      const name = nameInput.value.trim();
-      const comment = commentInput.value.trim();
-      if (!name || !comment) return; // mõlemad väljad peavad olema täidetud
+  let staggerDelay = 0;
 
-      // Loome ühe kommentaari bloki
-      const entry = document.createElement('div');
-      entry.className = 'comment-entry';
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
 
-      const strong = document.createElement('strong');
-      strong.textContent = name;
+      const el = entry.target;
 
-      const p = document.createElement('p');
-      p.textContent = comment;
+      // Stagger (0ms → 150ms → 300ms → 450ms …)
+      staggerDelay += 150;
 
-      entry.appendChild(strong);
-      entry.appendChild(p);
-      commentList.append(entry);
+      if (prefersReduced) {
+        el.style.opacity = 1;
+        el.style.filter = "none";
+        el.style.transform = "none";
+      } else {
+        el.style.transitionDelay = staggerDelay + "ms";
+        el.classList.add("reveal");
+      }
 
-      commentForm.reset(); // puhastame vormi
+      // Micro-parallax (õrn sügavusefekt, ei kirjuta üle reveal transformi)
+      if (window.innerWidth > 860) { // ainult desktop
+        el.addEventListener("mousemove", e => {
+          const rect = el.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width - 0.5) * 6;
+          const y = ((e.clientY - rect.top) / rect.height - 0.5) * 6;
+          el.style.setProperty('--parallax-x', x + "px");
+          el.style.setProperty('--parallax-y', y + "px");
+        });
+
+        el.addEventListener("mouseleave", () => {
+          el.style.setProperty('--parallax-x', "0px");
+          el.style.setProperty('--parallax-y', "0px");
+        });
+      } 
+      observer.unobserve(el);
     });
-  }
+  }, { threshold: 0.25 });
+
+  revealEls.forEach(el => observer.observe(el));
 
 })();
+
+/* ----------------------------------------------------------
+   KONTAKTVORM + DISCORDI WEBHOOK
+   ---------------------------------------------------------- */
+
+(() => {
+  const form = document.querySelector('[data-contact-form]');
+  if (!form) return;
+
+  const nameInput = form.querySelector('input[name="name"]');
+  const messageInput = form.querySelector('textarea[name="message"]');
+  const errorBox = form.querySelector('[data-error]');
+  const successBox = form.querySelector('[data-success]');
+
+  if (!messageInput || !errorBox || !successBox) return;
+
+  // ⚠️ PANE SIIA OMA TEGELIK DISCORDI WEBHOOKI URL
+  const WEBHOOK_URL = 'https://discord.com/api/webhooks/1441483174575214703/FFgIjZOIUY_K5YRi-KiUHZ4X3t2H13XsrojSYZIwsoeKg-vAPwu4uKJVsXl3oOhL_f7C';
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault(); // ära lase vormil lehte reloadida
+
+    const name = (nameInput?.value || '').trim() || 'Anonüümne';
+    const message = messageInput.value.trim();
+
+    // Kui sõnum tühi → näita viga
+    if (!message) {
+      errorBox.hidden = false;
+      errorBox.textContent = 'Palun kirjuta sõnum enne saatmist.';
+      successBox.hidden = true;
+      messageInput.focus();
+      return;
+    }
+
+    // Peida vana veateade
+    errorBox.hidden = true;
+
+    // Koosta tekst Discordi jaoks
+    const content = [
+      '**Uus sõnum veebilehelt**',
+      `**Nimi:** ${name}`,
+      `**Sõnum:**`,
+      message
+    ].join('\n');
+
+    try {
+      const response = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ content })
+      });
+
+      if (!response.ok) {
+        throw new Error('Vastuse kood: ' + response.status);
+      }
+
+      // Kui õnnestus:
+      successBox.hidden = false;
+      successBox.textContent = 'Aitäh! Sõnum saadetud Discordi kanalisse.';
+      messageInput.value = '';
+      if (nameInput) nameInput.value = '';
+
+    } catch (err) {
+      console.error('Discordi viga:', err);
+      errorBox.hidden = false;
+      errorBox.textContent = 'Midagi läks valesti. Proovi hiljem uuesti.';
+      successBox.hidden = true;
+    }
+  });
+
+  // Kui kasutaja hakkab kirjutama → peida veateade
+  messageInput.addEventListener('input', () => {
+    if (!errorBox.hidden) errorBox.hidden = true;
+  });
+})();
+

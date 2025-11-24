@@ -49,12 +49,12 @@
             <p class="ta-center">Blur-in + glow – kinoekraanilik.</p>
         </article>
     </section>
-    <section class="media-section" data-reveal>
+    <section class="media-section">
         <div class="media-container">
-            <div class="media-image">
+            <div class="media-image" data-reveal>
                 <img src="images/beach_photo.jpg" alt="Example image" />
             </div>
-            <div class="media-text">
+            <div class="media-text" data-reveal>
                 <h2 class="script mtb-1">Kolmekihiline ülesehitus</h2>
                 <p>
                     Rannamaastiku varjud ja värvigradient loovad avara perspektiivi, tuues esile õhulise ja valgusküllase meeleolu.
@@ -62,15 +62,15 @@
             </div>
         </div>
     </section>
-    <section class="media-section" data-reveal>
+    <section class="media-section">
         <div class="media-container">
-            <div class="media-text">
+            <div class="media-text" data-reveal>
                 <h2 class="script mtb-1">Fookus liikumisele</h2>
                 <p>
                     Vee ja valguse pehmed liikumised annavad stseenile loomuliku voolavuse, mis täiendab lehe rahustavat tonaalsust.
                 </p>
             </div>
-            <div class="media-video">
+            <div class="media-video" data-reveal>
                 <video src="video/beach.mp4" autoplay muted loop playsinline></video>
             </div>
         </div>
@@ -79,18 +79,30 @@
 <footer class="site-footer">
     <div class="comment-section">
         <h3 class="mt-2">Võta meiega ühendust</h3>
-        <form class="comment-form" id="commentForm">
+
+        <form class="comment-form" id="commentForm" data-contact-form novalidate>
+
             <label for="name">Teie nimi:</label>
             <input type="text" id="name" name="name" required>
 
             <label for="comment">Sõnum:</label>
-            <textarea id="comment" name="comment" rows="4" required></textarea>
+            <textarea id="comment" name="message" rows="4" required></textarea>
 
+            <!-- ilus oma veateate kast -->
+            <p class="form-error" data-error hidden>
+                Palun kirjuta sõnum enne saatmist.
+            </p>
+
+            <!-- eduteade -->
+            <p class="form-success" data-success hidden>
+                Aitäh! Sõnum saadetud Discordi kanalisse.
+            </p>
             <button type="submit">Saada</button>
         </form>
 
         <div class="comment-list" id="commentList"></div>
     </div>
+
     <p>© ATLAS v3.1.1 • Rand</p>
 </footer>
 </body>
