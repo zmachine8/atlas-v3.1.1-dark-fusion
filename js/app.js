@@ -188,7 +188,7 @@
 })();
 
 /* ----------------------------------------------------------
-   KONTAKTVORM + DISCORDI WEBHOOK
+   KONTAKTVORM + PHP BACKEND + PÄRIS KASUTAJA IP
    ---------------------------------------------------------- */
 
 (() => {
@@ -202,16 +202,12 @@
 
   if (!messageInput || !errorBox || !successBox) return;
 
-  // ⚠️ PANE SIIA OMA TEGELIK DISCORDI WEBHOOKI URL
-  const WEBHOOK_URL = 'https://discord.com/api/webhooks/1441483174575214703/FFgIjZOIUY_K5YRi-KiUHZ4X3t2H13XsrojSYZIwsoeKg-vAPwu4uKJVsXl3oOhL_f7C';
-
   form.addEventListener('submit', async (event) => {
-    event.preventDefault(); // ära lase vormil lehte reloadida
+    event.preventDefault();
 
     const name = (nameInput?.value || '').trim() || 'Anonüümne';
     const message = messageInput.value.trim();
 
-    // Kui sõnum tühi → näita viga
     if (!message) {
       errorBox.hidden = false;
       errorBox.textContent = 'Palun kirjuta sõnum enne saatmist.';
@@ -220,47 +216,44 @@
       return;
     }
 
-    // Peida vana veateade
     errorBox.hidden = true;
 
-    // Koosta tekst Discordi jaoks
-    const content = [
-      '**Uus sõnum veebilehelt**',
-      `**Nimi:** ${name}`,
-      `**Sõnum:**`,
-      message
-    ].join('\n');
+    /* -----------------------------
+       Saadame andmed PHP failile
+       PHP tuvastab päris IP!
+    ----------------------------- */
 
     try {
-      const response = await fetch(WEBHOOK_URL, {
+      const response = await fetch('contact.php', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ content })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          message
+        })
       });
 
-      if (!response.ok) {
-        throw new Error('Vastuse kood: ' + response.status);
-      }
+      const result = await response.json();
 
-      // Kui õnnestus:
+      if (!result.ok) throw new Error(result.error || "PHP vastus vigane");
+
+      // Kui õnnestus
       successBox.hidden = false;
       successBox.textContent = 'Aitäh! Sõnum saadetud Discordi kanalisse.';
+
       messageInput.value = '';
       if (nameInput) nameInput.value = '';
 
     } catch (err) {
-      console.error('Discordi viga:', err);
+      console.error('Viga:', err);
       errorBox.hidden = false;
       errorBox.textContent = 'Midagi läks valesti. Proovi hiljem uuesti.';
       successBox.hidden = true;
     }
   });
 
-  // Kui kasutaja hakkab kirjutama → peida veateade
+  // Peida error, kui kasutaja hakkab kirjutama
   messageInput.addEventListener('input', () => {
     if (!errorBox.hidden) errorBox.hidden = true;
   });
 })();
-

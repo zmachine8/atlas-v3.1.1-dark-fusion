@@ -202,6 +202,16 @@ h1::after, h2::after, .script::after {
     animation: shine-sweep .9s cubic-bezier(.2, .8, .2, 1) both;
 }
 
+/* .no-shine */
+.no-shine h1::after,
+.no-shine h2::after,
+.no-shine h3::after,
+.no-shine .script::after {
+    content: none !important;
+    opacity: 0 !important;
+    animation: none !important;
+}
+
 
 @keyframes shine-sweep {
     0% {
